@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  frontend:
+    build: 
+      context: ./mental-frontend
+      dockerfile: Dockerfile.prod
+    container_name: mental-app-frontend
+    command: npm run start
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - mental-app-network
+
+  auth:
+    build: 
+      context: ./mental-auth
+      dockerfile: Dockerfile.prod
+    container_name: mental-app-auth
+    command: npm run start:prod
+    restart: unless-stopped
+    ports:
+      - 3002:3002
+    environment:
+      - PORT=3002
+    networks:
+      - mental-app-network
+    
+networks:
+  mental-app-network:
+    driver: bridge

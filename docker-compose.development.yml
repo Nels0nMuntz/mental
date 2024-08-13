@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  frontend:
+    build: 
+      context: ./mental-frontend
+      dockerfile: Dockerfile.dev
+    command: npm run dev
+    volumes:
+      - ./mental-frontend/src:/app/src
+
+  auth:
+    build: 
+      context: ./mental-auth
+      dockerfile: Dockerfile.dev
+    command: npm run start:dev
+    volumes:
+      - ./mental-auth/src:/app/src
